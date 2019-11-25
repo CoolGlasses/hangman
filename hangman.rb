@@ -1,8 +1,8 @@
 require "byebug"
+require "json"
 
 class Hangman
   DICTIONARY = []
-  @@game_number = 0
 
   File.open("5desk.txt").each do |word|
     if word.length >= 5 && word.length <= 12
@@ -23,8 +23,7 @@ class Hangman
     @guess_word = Array.new(@secret_word.length, "_")
     @attempted_chars = []
     @remaining_incorrect_guesses = @secret_word.length + 1
-    @@game_number += 1
-    @this_game_number = @@game_number
+    @this_game_number = rand 100000000000
   end
 
   def this_game_number

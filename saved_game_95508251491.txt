@@ -1,0 +1,1 @@
+{"secret_word":"junco","guess_word":["_","_","_","_","_"],"attempted_chars":[],"remaining_incorrect_guesses":6,"this_game_number":95508251491}

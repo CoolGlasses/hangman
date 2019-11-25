@@ -6,6 +6,8 @@ until hangman.game_over?
   puts "-----------------------------------"
   puts "##########This is Game Number: #{hangman.this_game_number}##########"
   puts
+  puts "Can you save Stick-Stickly from being hung!?"
+  puts
   puts "Incorrect Guesses Remaining: #{hangman.remaining_incorrect_guesses}"
   puts
   puts "Attempted Chars: #{hangman.attempted_chars}"
@@ -31,7 +33,7 @@ until hangman.game_over?
     puts
     hangman.ask_user_for_guess
   else        
-    hangman.save
+    hangman.save_game
     puts "Game Number #{hangman.this_game_number} has been saved!"
     puts
     hangman.ask_user_for_guess
