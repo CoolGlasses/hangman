@@ -2,6 +2,7 @@ require "byebug"
 
 class Hangman
   DICTIONARY = []
+  @@game_number = 0
 
   File.open("5desk.txt").each do |word|
     if word.length >= 5 && word.length <= 12
@@ -13,12 +14,61 @@ class Hangman
       return DICTIONARY.sample 
   end 
 
+  def self.game_number
+    @@game_number
+  end
+
   def initialize
     @secret_word = Hangman.random_word 
     @guess_word = Array.new(@secret_word.length, "_")
     @attempted_chars = []
     @remaining_incorrect_guesses = @secret_word.length + 1
+    @@game_number += 1
+    @this_game_number = @@game_number
   end
+
+  def this_game_number
+    @this_game_number
+  end
+
+  def save_hash(secret_word, guess_word, attempted_chars, remaining_incorrect_guesses, this_game_number)
+    save_hash = Hash.new
+    save_hash[:secret_word] = secret_word
+    save_hash[:guess_word] = guess_word
+    save_hash[:attempted_chars] = attempted_chars
+    save_hash[:remaining_incorrect_guesses] = remaining_incorrect_guesses
+    save_hash[:this_game_number] = this_game_number
+    return save_hash
+  end
+
+  def save_game(save_hash)
+    File.open("saved_game_#{@this_game_number}.txt", "w") do |file|
+      file.write save_hash.to_json
+    end
+  end
+
+  def load_game(game_number)
+    load_hash = Hash.new
+
+    load_hash = JSON.parse(File.read("saved_game_#{game_number}.txt"))
+
+    load_hash.each do |k, v|
+      case k
+        when :secret_word
+          @secret_word = v
+        when :guess_word 
+          @guess_word = v 
+        when :attempted_chars
+          @attempted_chars = v 
+        when :remaining_incorrect_guesses
+          @remaining_incorrect_guesses = v
+        when :this_game_number
+          @this_game_number = v 
+        else
+          puts "There was an error loading your file! Closing game."
+      end
+    end
+  end 
 
   def guess_word
       @guess_word 
