@@ -41,9 +41,10 @@ class Hangman
     return save_hash
   end
 
-  def save_game(save_hash)
+  def save_game
+    save = save_hash(@secret_word, @guess_word, @attempted_chars, @remaining_incorrect_guesses, @this_game_number)
     File.open("saved_game_#{@this_game_number}.txt", "w") do |file|
-      file.write save_hash.to_json
+      file.write save.to_json
     end
   end
 
@@ -164,7 +165,7 @@ class Hangman
   def game_over?
     if win? == true || lose? == true
       puts
-      puts "The Secret Word was: #{@secret_word}!"
+      puts "The Secret Word was: #{@secret_word}"
       return true 
     else  
       return false 
