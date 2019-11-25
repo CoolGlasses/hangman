@@ -1,0 +1,1 @@
+{"secret_word":"welter","guess_word":["_","_","_","_","_","r"],"attempted_chars":["r"],"remaining_incorrect_guesses":7,"this_game_number":4}

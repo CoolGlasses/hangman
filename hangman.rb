@@ -23,7 +23,7 @@ class Hangman
     @guess_word = Array.new(@secret_word.length, "_")
     @attempted_chars = []
     @remaining_incorrect_guesses = @secret_word.length + 1
-    @this_game_number = rand 100000000000
+    @this_game_number = rand 10
   end
 
   def this_game_number
@@ -54,15 +54,15 @@ class Hangman
 
     load_hash.each do |k, v|
       case k
-        when :secret_word
+        when "secret_word"
           @secret_word = v
-        when :guess_word 
+        when "guess_word" 
           @guess_word = v 
-        when :attempted_chars
+        when "attempted_chars"
           @attempted_chars = v 
-        when :remaining_incorrect_guesses
+        when "remaining_incorrect_guesses"
           @remaining_incorrect_guesses = v
-        when :this_game_number
+        when "this_game_number"
           @this_game_number = v 
         else
           puts "There was an error loading your file! Closing game."
