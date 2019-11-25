@@ -5,7 +5,7 @@ class Hangman
 
   File.open("5desk.txt").each do |word|
     if word.length >= 5 && word.length <= 12
-      DICTIONARY << word
+      DICTIONARY << word.chomp
     end
   end
 
@@ -17,7 +17,7 @@ class Hangman
     @secret_word = Hangman.random_word 
     @guess_word = Array.new(@secret_word.length, "_")
     @attempted_chars = []
-    @remaining_incorrect_guesses = @secret_word.length - 1
+    @remaining_incorrect_guesses = @secret_word.length + 1
   end
 
   def guess_word
@@ -64,7 +64,7 @@ class Hangman
  
     
     if already_attempted?(char)
-      p "that has already been attempted"
+      puts "Sorry, you've already tried that letter!  Guess again:"
       return false 
     end 
 
@@ -83,14 +83,17 @@ class Hangman
   end 
 
   def ask_user_for_guess
-    p "Enter a char:"
+    puts
+    puts "Enter a letter you think might be in the word:"
     guess = gets.chomp
     return try_guess(guess)
   end 
 
   def win?
     if @guess_word.join("") == @secret_word
-      puts "WIN"
+      puts
+      puts "You win!  Congratulations!"
+      puts
       return true 
     else  
       return false
@@ -99,7 +102,9 @@ class Hangman
 
   def lose?
     if @remaining_incorrect_guesses == 0
-      puts "LOSE"
+      puts
+      puts "You lose!  Poor little Stick Stickly has been hung!"
+      puts
       return true 
     else  
       return false 
@@ -107,11 +112,9 @@ class Hangman
   end 
 
   def game_over?
-
-
-
     if win? == true || lose? == true
-      p @secret_word
+      puts
+      puts "The Secret Word was: #{@secret_word}!"
       return true 
     else  
       return false 
