@@ -1,7 +1,13 @@
 require "byebug"
 
 class Hangman
-  DICTIONARY = ["cat", "dog", "bootcamp", "pizza"]
+  DICTIONARY = []
+
+  File.open("5desk.txt").each do |word|
+    if word.length >= 5 && word.length <= 12
+      DICTIONARY << word
+    end
+  end
 
   def self.random_word
       return DICTIONARY.sample 
@@ -11,7 +17,7 @@ class Hangman
     @secret_word = Hangman.random_word 
     @guess_word = Array.new(@secret_word.length, "_")
     @attempted_chars = []
-    @remaining_incorrect_guesses = 5
+    @remaining_incorrect_guesses = @secret_word.length - 1
   end
 
   def guess_word
